@@ -69,13 +69,11 @@ export default function ProjectArchive() {
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? 'noreferrer' : undefined}
                 >
-                  {
-                    project.title === 'AutoIntel'
+                  {project.title === 'AutoIntel'
                     ? 'Read case study'
                     : isExternal
                       ? 'View repository'
-                      : 'Explore project'
-                  }
+                      : 'Explore project'}
                   <ArrowUpRight size={15} />
                 </a>
               </div>

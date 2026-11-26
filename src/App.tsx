@@ -1,34 +1,124 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDown, ArrowRight, ArrowUpRight, AudioLines, Bot, BriefcaseBusiness, ChevronDown, Code2, Cpu, Github, Linkedin, Mail, Menu, Network, Play, RadioTower, ShieldCheck, X } from 'lucide-react'
+import ProjectArchive from './components/projects/ProjectArchive'
 
 const paths = [
-  { id: '01', name: 'The Strategist', role: 'Product Management', desc: 'Turning technical capability into useful products, clear priorities and measurable outcomes.', icon: BriefcaseBusiness, skills: 'Discovery · Roadmaps · Product thinking', resume: 'product-management.pdf' },
-  { id: '02', name: 'The Pathfinder', role: 'Forward Deployed & Solutions', desc: 'Working at the boundary of customer problems, systems architecture and implementation.', icon: Network, skills: 'Solution design · Integrations · Cloud', resume: 'fde-solutions.pdf' },
-  { id: '03', name: 'The Arcanist', role: 'AI / ML Engineering', desc: 'Building practical intelligence with machine learning, LLM applications and agentic systems.', icon: Bot, skills: 'ML · LLMs · AI agents', resume: 'ai-ml-engineer.pdf' },
-  { id: '04', name: 'The Craftsman', role: 'Software Engineering', desc: 'Engineering reliable software across backend services, mobile systems and connected devices.', icon: Code2, skills: 'Python · Kotlin · APIs · Systems', resume: 'software-engineer.pdf' },
-]
-
-const projects = [
-  { number: '01', title: 'AutoIntel', type: 'Connected-vehicle data platform', status: 'Implemented core pipeline', description: 'A B2B telemetry and analytics platform designed to help automotive stakeholders collect, process and understand connected-vehicle data.', tags: ['Android Automotive', 'MQTT', 'AWS IoT Core', 'Kinesis', 'S3', 'Athena', 'QuickSight'], href: '#autointel', featured: true },
-  { number: '02', title: 'AgentForge', type: 'LLM agent framework', status: 'Project build', description: 'An exploration of agentic application design, orchestration and the building blocks behind tool-using AI systems.', tags: ['Python', 'LLMs', 'Agents', 'FastAPI'], href: 'https://github.com/shagunshivam01/agentforge', featured: true },
-  { number: '03', title: 'ML Starter Pack', type: 'Machine learning repository', status: 'Open source', description: 'A practical starting point for exploring core machine-learning workflows and foundational techniques.', tags: ['Python', 'Machine Learning', 'Scikit-learn'], href: 'https://github.com/shagunshivam01/ml-starter-pack', featured: false },
+  { 
+    id: '01', 
+    name: 'The Strategist', 
+    role: 'Product Management', 
+    desc: 'Turning technical capability into useful products, clear priorities and measurable outcomes.', 
+    icon: BriefcaseBusiness, 
+    skills: 'Discovery · Roadmaps · Product thinking', 
+    resume: 'product-management.pdf' 
+  },
+  { 
+    id: '02', 
+    name: 'The Pathfinder', 
+    role: 'Forward Deployed & Solutions', 
+    desc: 'Working at the boundary of customer problems, systems architecture and implementation.', 
+    icon: Network, 
+    skills: 'Solution design · Integrations · Cloud', 
+    resume: 'fde-solutions.pdf' 
+  },
+  { 
+    id: '03', 
+    name: 'The Arcanist', 
+    role: 'AI / ML Engineering', 
+    desc: 'Building practical intelligence with machine learning, LLM applications and agentic systems.', 
+    icon: Bot, 
+    skills: 'ML · LLMs · AI agents', 
+    resume: 'ai-ml-engineer.pdf' 
+  },
+  { 
+    id: '04', 
+    name: 'The Craftsman', 
+    role: 'Software Engineering', 
+    desc: 'Engineering reliable software across backend services, mobile systems and connected devices.', 
+    icon: Code2, 
+    skills: 'Python · Kotlin · APIs · Systems', 
+    resume: 'software-engineer.pdf' 
+  },
 ]
 
 const layers = [
-  { id: 'edge', label: '01 / Vehicle edge', title: 'Collect at the source', text: 'An Android Automotive application runs on the infotainment head unit and gathers vehicle-side and application interaction data. Local configuration and connectivity support the collection workflow.', components: ['Infotainment head unit', 'AutoIntel Android app', 'Vehicle / app telemetry', 'Wi-Fi network connection'] },
-  { id: 'secure', label: '02 / Secure ingestion', title: 'Transmit securely', text: 'The vehicle-side service publishes telemetry over MQTT to AWS IoT Core, using X.509 certificate authentication for device identity and secure communication.', components: ['MQTT', 'AWS IoT Core', 'X.509 certificates', 'IoT Rules'] },
-  { id: 'cloud', label: '03 / Cloud data', title: 'Store and process', text: 'The implemented cloud pipeline uses Kinesis Data Firehose for delivery to Amazon S3. AWS Lambda supports processing functions in the system.', components: ['Kinesis Data Firehose', 'Amazon S3', 'AWS Lambda'] },
-  { id: 'insight', label: '04 / Analytics', title: 'Query and explore', text: 'Amazon Athena makes stored data queryable, while Amazon QuickSight provides dashboards and visual reporting for analysis.', components: ['Amazon Athena', 'Amazon QuickSight'] },
-  { id: 'future', label: '05 / Future extensions', title: 'Expand the platform', text: 'These capabilities were identified as planned extensions, not part of the currently implemented inventory.', components: ['Amazon SageMaker — ML integration', 'Amazon DynamoDB — application data', 'Amazon SNS — notifications'] },
+  { 
+    id: 'edge', 
+    label: '01 / Vehicle edge', 
+    title: 'Collect at the source', 
+    text: 'An Android Automotive application runs on the infotainment head unit and gathers vehicle-side and application interaction data. Local configuration and connectivity support the collection workflow.', 
+    components: [
+      'Infotainment head unit', 
+      'AutoIntel Android app', 
+      'Vehicle / app telemetry', 
+      'Wi-Fi network connection'
+    ] 
+  },
+  { 
+    id: 'secure', 
+    label: '02 / Secure ingestion', 
+    title: 'Transmit securely', 
+    text: 'The vehicle-side service publishes telemetry over MQTT to AWS IoT Core, using X.509 certificate authentication for device identity and secure communication.', 
+    components: [
+      'MQTT', 
+      'AWS IoT Core', 
+      'X.509 certificates', 
+      'IoT Rules'
+    ] 
+  },
+  {
+    id: 'cloud',
+    label: '03 / Cloud data',
+    title: 'Store and process',
+    text: 'The cloud pipeline connects Amazon Kinesis with Amazon S3 for data ingestion and storage. AWS Lambda supports processing functions in the system.',
+    components: ['Amazon Kinesis', 'Amazon S3', 'AWS Lambda'],
+  },
+  {
+    id: 'insight',
+    label: '04 / Analytics',
+    title: 'Make telemetry queryable',
+    text: 'Amazon Athena is connected for querying stored data. Dashboarding and visual reporting are planned next steps; dashboards are not yet live.',
+    components: [
+      'Amazon Athena',
+      'Amazon QuickSight',
+      'Analytics dashboards',
+    ],
+  },
+  { 
+    id: 'future', 
+    label: '05 / Future extensions', 
+    title: 'Expand the platform', 
+    text: 'These capabilities were identified as planned extensions, not part of the currently implemented inventory.', 
+    components: [
+      'Amazon SageMaker — ML integration', 
+      'Amazon DynamoDB — application data', 
+      'Amazon SNS — notifications'
+    ] 
+  },
 ]
+
 
 function App() {
   const [activeLayer, setActiveLayer] = useState('edge')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [videoOpen, setVideoOpen] = useState(false)
+
   const currentLayer = layers.find(layer => layer.id === activeLayer)!
-  const nav = [{ label: 'Projects', href: '#projects' }, { label: 'Career paths', href: '#paths' }, { label: 'About', href: '#about' }]
+  const nav = [
+    { 
+      label: 'Projects', 
+      href: '#projects' 
+    }, 
+    { 
+      label: 'Career paths', 
+      href: '#paths' 
+    }, 
+    { 
+      label: 'About', 
+      href: '#about' 
+    }
+  ]
 
   return <div className="site-shell">
     <div className="ambient ambient-one"/><div className="ambient ambient-two"/><div className="grain"/>
@@ -68,26 +158,25 @@ function App() {
         <div className="signal-foot"><span><AudioLines size={14}/> CURRENT FREQUENCY</span><span>AI · CLOUD · CONNECTED SYSTEMS · PRODUCT</span></div>
       </section>
 
-      <section id="projects" className="projects section-wrap section-block">
-        <div className="section-heading"><div><div className="section-kicker">/ SELECTED WORK</div><h2>Built in the <em>field.</em></h2></div><p>A selection of systems, experiments and tools shaped by practical engineering.</p></div>
-        <div className="project-grid">{projects.map((project, i) => <motion.article className={`project-card ${project.featured ? 'project-featured' : ''}`} key={project.number} initial={{opacity:0,y:18}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.2}} transition={{duration:.5,delay:i*.08}}>
-          <div className="project-top"><span>CASE FILE / {project.number}</span><span className="project-status"><i/> {project.status}</span></div>
-          <div className="project-visual"><div className={`project-glyph glyph-${project.number}`}><span>{project.number}</span><div className="glyph-ring"/><div className="glyph-ring ring-inner"/></div><span className="visual-caption">{project.type.toUpperCase()}</span></div>
-          <div className="project-body"><h3>{project.title}</h3><p>{project.description}</p><div className="tag-row">{project.tags.map(tag=><span key={tag}>{tag}</span>)}</div><a className="text-link" href={project.href} target={project.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{project.href.startsWith('http') ? 'View repository' : 'Explore case study'} <ArrowUpRight size={15}/></a></div>
-        </motion.article>)}</div>
-      </section>
+      <ProjectArchive />
 
       <section id="autointel" className="architecture section-wrap section-block">
         <div className="section-heading"><div><div className="section-kicker">/ FLAGSHIP SYSTEM · AUTOINTEL</div><h2>From vehicle signal<br/>to <em>useful insight.</em></h2></div><p>A B2B connected-vehicle telemetry and analytics platform for automotive stakeholders — not a consumer-facing app.</p></div>
         <div className="arch-panel">
           <div className="arch-map"><div className="arch-map-head"><span>PLATFORM MAP / INTERACTIVE</span><span><i className="status-dot"/> SYSTEM OVERVIEW</span></div>
             <div className="flow-line"/>
-            <div className="arch-nodes">{layers.map((layer, index)=><button key={layer.id} className={`arch-node ${activeLayer===layer.id?'active':''} ${layer.id==='future'?'future-node':''}`} onClick={()=>setActiveLayer(layer.id)}><span className="node-index">0{index+1}</span><span className="node-icon">{index===0?<Cpu size={18}/>:index===1?<ShieldCheck size={18}/>:index===2?<RadioTower size={18}/>:index===3?<AudioLines size={18}/>:<ChevronDown size={18}/>}</span><b>{layer.label.split(' / ')[1]}</b><small>{index===4?'PLANNED':'IMPLEMENTED'}</small></button>)}</div>
+            <div className="arch-nodes">{layers.map((layer, index)=><button key={layer.id} className={`arch-node ${activeLayer===layer.id?'active':''} ${layer.id==='future'?'future-node':''}`} onClick={()=>setActiveLayer(layer.id)}><span className="node-index">0{index+1}</span><span className="node-icon">{index===0?<Cpu size={18}/>:index===1?<ShieldCheck size={18}/>:index===2?<RadioTower size={18}/>:index===3?<AudioLines size={18}/>:<ChevronDown size={18}/>}</span><b>{layer.label.split(' / ')[1]}</b><small>{index === 4 ? 'PLANNED' : index === 3 ? 'PARTIAL' : 'IMPLEMENTED'}</small></button>)}</div>
             <div className="arch-map-foot"><span>SELECT A NODE TO INSPECT THE LAYER</span><span>EDGE → CLOUD → INSIGHT</span></div>
           </div>
           <div className="arch-detail" key={currentLayer.id}><div className="section-kicker">{currentLayer.label}</div><h3>{currentLayer.title}</h3><p>{currentLayer.text}</p><div className="component-list">{currentLayer.components.map((component,i)=><div key={component}><span>0{i+1}</span>{component}</div>)}</div><div className="arch-note">{activeLayer==='future'?'ROADMAP / PLANNED EXTENSIONS':'IMPLEMENTATION / COMPLETED COMPONENTS'}</div></div>
         </div>
-        <div className="arch-disclaimer">Architecture shown at a portfolio level. Company implementation details and proprietary code are intentionally not disclosed.</div>
+        <div className="arch-disclaimer">
+          Architecture shown at a portfolio level. Company implementation details and proprietary code are intentionally not disclosed.
+        </div>
+        <a className="text-link" href="autointel.html">
+          Explore the full AutoIntel case study
+          <ArrowUpRight size={15} />
+        </a>
       </section>
 
       <section id="paths" className="paths section-wrap section-block">
